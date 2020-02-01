@@ -34,12 +34,16 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ItemHo
         holder.nama.setText("Nama : "+mData.getNama());
         holder.tglLahir.setText("Tgl Lahir : "+mData.getTanggal_lahir());
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("data02");
-        mRef.child(String.valueOf(mData.getId())).addValueEventListener(new ValueEventListener() {
+
+        //memanggil data detail berdasarkan id user
+        String id_user = String.valueOf(mData.getId());
+        mRef.child(id_user).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //holder.tvInitial.setText(data.getNama());
                 DetailUser detailUser = dataSnapshot.getValue(DetailUser.class);
                 if(detailUser!=null) {
+                    //menampilkan data cita-cita dan hobi
                     holder.citaCita.setText(detailUser.getCita_cita());
                     holder.hobi.setText(detailUser.getHobi());
                 }

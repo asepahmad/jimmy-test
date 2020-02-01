@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         list.setItemAnimator(new DefaultItemAnimator());
         list.setAdapter(adapter);
 
+        //memanggil data yang ada pada data01
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         db.child("data01").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                //memasukkan kedalam adapter
                 adapter.add(dataSnapshot.getValue(User.class));
             }
 
